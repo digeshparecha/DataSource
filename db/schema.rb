@@ -18,15 +18,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_17_090305) do
     t.date "date"
     t.integer "male_count"
     t.integer "female_count"
-    t.decimal "male_avg_age", precision: 3, scale: 2
-    t.decimal "female_avg_age", precision: 3, scale: 2
+    t.float "male_avg_age"
+    t.float "female_avg_age"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
     t.string "uuid"
-    t.string "gender"
+    t.integer "gender"
     t.jsonb "name"
     t.jsonb "location"
     t.integer "age"

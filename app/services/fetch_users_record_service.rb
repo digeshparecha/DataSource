@@ -1,38 +1,35 @@
 # frozen_string_literal: true
 
 class FetchUsersRecordService
-  def initialize(api)
-    @api = api
-  end
+  API_URL = 'https://randomuser.me/api/?results=20'
 
-  def fetch_data
-    data = HTTParty.get(@api)
+  def self.fetch_data
+    male_record_count = female_record_count = 0
+    data = HTTParty.get(API_URL)
     data['results'].each do |record|
       uuid = record.dig('login', 'uuid')
 
-      existing_user = User.find_by(uuid:)
+      user = User.find_or_initialize_by(uuid:)
+      user.assign_attributes({
+                               gender: record['gender'],
+                               name: record['name'],
+                               location: record['location'],
+                               age: record.dig('dob', 'age')
+                             })
 
-      if existing_user
-        # If the user with the same uuid exists, update the attributes
-        existing_user.update!(
-          gender: record['gender'],
-          name: record['name'],
-          location: record['location'],
-          age: record.dig('dob', 'age')
-        )
-      else
-        # If the user with the uuid doesn't exist, create a new user
-        User.create!(
-          uuid:,
-          gender: record['gender'],
-          name: record['name'],
-          location: record['location'],
-          age: record.dig('dob', 'age')
-        )
+      user.save!
+      if user.male?
+        male_record_count += 1
+      elsif user.female?
+        female_record_count += 1
       end
     end
-    male_count = User.where(gender: 'male').count
-    female_count = User.where(gender: 'female').count
-    Redis.new.hmset('hourly_records','male_count',male_count,'female_count',female_count)
+    redis = Redis.new
+    prev_counts = redis.hgetall('hourly_records')
+
+    redis.hmset('hourly_records', 'male_count', (prev_counts['male_count'].to_i + male_record_count), 'female_count',
+                (prev_counts['female_count'].to_i + female_record_count))
+  rescue HTTParty::Error, StandardError => e
+    Rails.logger.debug { "An error occurred: #{e.message}" }
   end
 end
