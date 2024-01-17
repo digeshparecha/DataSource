@@ -73,3 +73,5 @@ gem "httparty"
 gem 'rubocop'
 gem 'rubocop-rails'
 gem 'rubocop-performance'
+
+gem "pry", "~> 0.14.2"

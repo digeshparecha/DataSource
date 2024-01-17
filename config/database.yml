@@ -82,3 +82,6 @@ production:
   database: data_monitoring_production
   username: data_monitoring
   password: <%= ENV["DATA_MONITORING_DATABASE_PASSWORD"] %>
+
+redis:
+  url: redis://localhost:6379/0
