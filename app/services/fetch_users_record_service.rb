@@ -24,11 +24,12 @@ class FetchUsersRecordService
         female_record_count += 1
       end
     end
-    redis = Redis.new
-    prev_counts = redis.hgetall('hourly_records')
 
-    redis.hmset('hourly_records', 'male_count', (prev_counts['male_count'].to_i + male_record_count), 'female_count',
-                (prev_counts['female_count'].to_i + female_record_count))
+    redis_data_service = RedisDataStoreService.new
+
+    redis_data_service.male_count = redis_data_service.male_count + male_record_count
+    redis_data_service.female_count = redis_data_service.female_count + female_record_count
+    redis_data_service.save
   rescue HTTParty::Error, StandardError => e
     Rails.logger.debug { "An error occurred: #{e.message}" }
   end
