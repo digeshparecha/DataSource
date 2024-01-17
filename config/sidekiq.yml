@@ -1,0 +1,6 @@
+:scheduler:
+  :schedule:
+    hourly_job:
+      cron: "0 0 * * * *"  # Run every hour
+      class: "HourlyWorker"
+      queue: "default"

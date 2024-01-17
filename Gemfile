@@ -65,6 +65,7 @@ gem "liquid"
 
 # Background processing for jobs
 gem "sidekiq"
+gem "sidekiq-scheduler"
 
 # HTTP client for fetching data from third-party APIs
 gem "httparty"
