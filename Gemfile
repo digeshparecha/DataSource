@@ -60,3 +60,16 @@ group :development do
   # gem "spring"
 end
 
+# Templating engine for dynamic content
+gem "liquid"
+
+# Background processing for jobs
+gem "sidekiq"
+
+# HTTP client for fetching data from third-party APIs
+gem "httparty"
+
+# static code analyzer and code formatter.
+gem 'rubocop'
+gem 'rubocop-rails'
+gem 'rubocop-performance'
