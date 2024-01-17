@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class EndOfDayWorker
+class UploadDailyReportWorker
   include Sidekiq::Worker
 
   def perform

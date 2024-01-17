@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class HourlyWorker
+class FetchUserDataWorker
   include Sidekiq::Worker
 
   def perform

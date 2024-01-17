@@ -6,8 +6,8 @@ class CreateDailyRecords < ActiveRecord::Migration[7.1]
       t.date :date
       t.integer :male_count
       t.integer :female_count
-      t.decimal :male_avg_age, precision: 3, scale: 2
-      t.decimal :female_avg_age, precision: 3, scale: 2
+      t.float :male_avg_age
+      t.float :female_avg_age
 
       t.timestamps
     end
