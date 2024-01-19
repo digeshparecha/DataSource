@@ -1,0 +1,16 @@
+<h4 class="my-4 text-center">User Dashboard</h4>
+
+<div class="card">
+  <div class="card-body">
+    <%= form_with url: root_path, method: :get, class: "row" do |f| %>
+      <div class="col-10">
+        <%= f.search_field :name, value: params[:name],class: "form-control" ,placeholder: "Search" %>
+      </div>
+      <div class="col-2">
+        <%= f.submit "search", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%= (@template.render('users' => @users.as_json)).html_safe %>

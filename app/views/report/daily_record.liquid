@@ -1,0 +1,24 @@
+<h4 class="my-4 text-center">Daily Records Dashboard</h4>
+
+<table class="table table-striped table-hover">
+  <thead class="table-dark">
+    <tr>
+      <th>Date</th>
+      <th>Male Count</th>
+      <th>Female Count</th>
+      <th>Male Avg Age</th>
+      <th>Female Avg Age</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for record in daily_records %}
+      <tr>
+        <td>{{ record.date }}</td>
+        <td>{{ record.male_count }}</td>
+        <td>{{ record.female_count }}</td>
+        <td>{{ record.male_avg_age }}</td>
+        <td>{{ record.female_avg_age }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
