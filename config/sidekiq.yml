@@ -1,0 +1,10 @@
+:scheduler:
+  :schedule:
+    hourly_job:
+      cron: "0 0 * * * *"  # Run every hour
+      class: "FetchUserDataWorker"
+      queue: "default"
+    end_of_day_job:
+      cron: "0 23 * * *"
+      class: "UploadDailyReportWorker" # Run at End of the day
+      queue: default
